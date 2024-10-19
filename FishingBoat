@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class FishingBoat {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double budget = scanner.nextDouble();
+        String season = scanner.next();
+        int fishermen = scanner.nextInt();
+
+        double boatPrice = 0.0;
+        double discount = 0.0;
+
+        switch (season) {
+            case "Spring":
+                boatPrice = 3000.0;
+                break;
+            case "Summer":
+            case "Autumn":
+                boatPrice = 4200.0;
+                break;
+            case "Winter":
+                boatPrice = 2600.0;
+                break;
+            default:
+                System.out.println("Invalid season.");
+                return;
+        }
+
+        if (fishermen <= 6) {
+            discount = 0.10;
+        } else if (fishermen <= 11) {
+            discount = 0.15;
+        } else {
+            discount = 0.25;
+        }
+
+        if (fishermen % 2 == 0 && !season.equals("Autumn")) {
+            discount += 0.05;
+        }
+
+        double totalPrice = boatPrice * (1 - discount);
+
+        if (budget >= totalPrice) {
+            double remainingBudget = budget - totalPrice;
+            System.out.printf("Yes! You have %.2f leva left.%n", remainingBudget);
+        } else {
+            double neededMoney = totalPrice - budget;
+            System.out.printf("Not enough money! You need %.2f leva.%n", neededMoney);
+        }
+
+        scanner.close();
+    }
+}
